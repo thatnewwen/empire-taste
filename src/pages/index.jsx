@@ -1,21 +1,30 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import styled from '@emotion/styled'
-import { graphql } from 'gatsby'
-import { Layout, Listing, Wrapper, Title } from '../components'
-import website from '../../config/website'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import styled from "@emotion/styled";
+import { graphql } from "gatsby";
+import { Layout, Listing, Wrapper, Title } from "../components";
+import website from "../../config/website";
+import heroVideo from "../components/hero.mp4";
+import logo from "../components/ET-logo.png";
 
 const Hero = styled.header`
-  background-color: ${(props) => props.theme.colors.greyLight};
+  background-color: ${(props) => props.theme.colors.yellow};
   display: flex;
   align-items: center;
-`
+  height: 100vh;
+`;
 
 const HeroInner = styled(Wrapper)`
-  padding-top: 13rem;
-  padding-bottom: 13rem;
+  /* padding-top: 13rem;
+  padding-bottom: 13rem; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   h1 {
     margin-bottom: 2rem;
+  }
+  video {
+    border-radius: 5px;
   }
   @media (max-width: ${(props) => props.theme.breakpoints.l}) {
     padding-top: 10rem;
@@ -29,39 +38,52 @@ const HeroInner = styled(Wrapper)`
     padding-top: 6rem;
     padding-bottom: 6rem;
   }
-`
+`;
 
 const HeroText = styled.div`
-  font-size: 1.7rem;
+  font-size: 0.7rem;
   line-height: 1.4;
-  margin-bottom: 2rem;
+  margin: 2rem 0;
+  width: 600px;
   @media (max-width: ${(props) => props.theme.breakpoints.m}) {
     font-size: 1.4rem;
   }
   @media (max-width: ${(props) => props.theme.breakpoints.s}) {
     font-size: 1.25rem;
   }
-`
+`;
 
 const Social = styled.ul`
   list-style-type: none;
   display: flex;
+  position: absolute;
+  flex-direction: row;
+  left: 30px;
+  /* flex-direction: column; */
   flex-wrap: wrap;
   margin-left: 0;
-  font-family: 'Source Sans Pro', -apple-system, 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial',
-    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-family: "Source Sans Pro", -apple-system, "BlinkMacSystemFont",
+    "Segoe UI", "Roboto", "Helvetica", "Arial", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+  img {
+    width: 70px;
+  }
   li {
-    display: inline;
-    &:not([data-name='social-entry-0']) {
-      margin-left: 2.5rem;
+    display: flex;
+    align-items: center;
+    margin-left: 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0rem;
+    &:not([data-name="social-entry-0"]) {
       @media (max-width: ${(props) => props.theme.breakpoints.s}) {
         margin-left: 1.75rem;
       }
     }
     a {
       font-style: normal;
+      text-transform: uppercase;
       color: ${(props) => props.theme.colors.greyDark};
-      font-size: 1.333rem;
+      font-size: 0.6rem;
       font-weight: 600;
       &:hover,
       &:focus {
@@ -73,7 +95,7 @@ const Social = styled.ul`
       }
     }
   }
-`
+`;
 
 const ProjectListing = styled.ul`
   list-style-type: none;
@@ -90,48 +112,64 @@ const ProjectListing = styled.ul`
       }
     }
   }
-`
+`;
 
-const IndexWrapper = Wrapper.withComponent('main')
+const IndexWrapper = Wrapper.withComponent("main");
 
 class Index extends Component {
   render() {
     const {
       data: { homepage, social, posts, projects },
-    } = this.props
+    } = this.props;
     return (
       <Layout>
         <Hero>
           <HeroInner>
-            <h1>{homepage.data.title.text}</h1>
-            <HeroText dangerouslySetInnerHTML={{ __html: homepage.data.content.html }} />
-            <Social>
-              {social.nodes.map((s, index) => (
-                <li data-name={`social-entry-${index}`} key={s.primary.label.text}>
-                  <a href={s.primary.link.url}>{s.primary.label.text}</a>
-                </li>
-              ))}
-            </Social>
+            <video width="600" autoPlay muted loop>
+              <source src={heroVideo} type="video/mp4"></source>
+              Your browser does not support the video tag.
+            </video>
+            <HeroText
+              dangerouslySetInnerHTML={{ __html: homepage.data.content.html }}
+            />
+            <div className="headerSection">
+              <Social>
+                <img src={logo} />
+                {social.nodes.map((s, index) => (
+                  <li
+                    data-name={`social-entry-${index}`}
+                    key={s.primary.label.text}
+                  >
+                    <a href={s.primary.link.url}>{s.primary.label.text}</a>
+                  </li>
+                ))}
+              </Social>
+            </div>
           </HeroInner>
         </Hero>
-        <IndexWrapper id={website.skipNavId} style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
-          <Title style={{ marginTop: '4rem' }}>Recent posts</Title>
+        {/* <IndexWrapper
+          id={website.skipNavId}
+          style={{ paddingTop: "2rem", paddingBottom: "2rem" }}
+        >
+          <Title style={{ marginTop: "4rem" }}>Recent posts</Title>
           <Listing posts={posts.nodes} />
-          <Title style={{ marginTop: '8rem' }}>Recent projects</Title>
+          <Title style={{ marginTop: "8rem" }}>Recent projects</Title>
           <ProjectListing>
             {projects.nodes.map((project) => (
               <li key={project.primary.label.text}>
-                <a href={project.primary.link.url}>{project.primary.label.text}</a>
+                <a href={project.primary.link.url}>
+                  {project.primary.label.text}
+                </a>
               </li>
             ))}
           </ProjectListing>
-        </IndexWrapper>
+        </IndexWrapper> */}
       </Layout>
-    )
+    );
   }
 }
 
-export default Index
+export default Index;
 
 Index.propTypes = {
   data: PropTypes.shape({
@@ -155,7 +193,7 @@ Index.propTypes = {
       nodes: PropTypes.array.isRequired,
     }),
   }).isRequired,
-}
+};
 
 export const pageQuery = graphql`
   query IndexQuery {
@@ -214,4 +252,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
