@@ -62,7 +62,7 @@ const HeroText = styled.div`
   }
   @media (max-width: ${(props) => props.theme.breakpoints.s}) {
     color: ${(props) => props.theme.colors.yellow};
-    font-size: 1rem;
+    font-size: 0.7rem;
     margin: 2rem;
   }
 `;
@@ -79,13 +79,25 @@ const Social = styled.ul`
   font-family: "Source Sans Pro", -apple-system, "BlinkMacSystemFont",
     "Segoe UI", "Roboto", "Helvetica", "Arial", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol";
+    .stdLogo{
+      display: block;
+    }
+    .yellowLogo{
+      display: none;
+    }
   @media (max-width: ${(props) => props.theme.breakpoints.s}) {
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
     left: 0;
-    right: 0;
-    justify-content: center;
 
     .stdLogo{
       display: none;
+    }
+    .yellowLogo{
+      display: block;
     }
   }
   img {
@@ -97,10 +109,11 @@ const Social = styled.ul`
     margin-left: 1.5rem;
     margin-top: 0.5rem;
     margin-bottom: 0rem;
+    @media (max-width: ${(props) => props.theme.breakpoints.s}) {
+      margin-left: 0;
+      margin-top: 1rem;
+    }
     &:not([data-name="social-entry-0"]) {
-      @media (max-width: ${(props) => props.theme.breakpoints.s}) {
-        margin-left: 1.75rem;
-      }
     }
     a {
       font-style: normal;
@@ -161,7 +174,7 @@ class Index extends Component {
             />
             <div className="headerSection">
               <Social>
-                <img src={yellowLogo} />
+                <img className="yellowLogo" src={yellowLogo} />
                 <img className="stdLogo" src={logo} />
                 {social.nodes.map((s, index) => (
                   <li
