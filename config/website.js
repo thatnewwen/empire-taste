@@ -11,8 +11,8 @@ module.exports = {
 
   // JSONLD / Manifest
   favicon: 'src/ET-logo.png', // Used for manifest favicon generation
-  shortName: 'Prismic', // shortname for manifest. MUST be shorter than 12 characters
-  author: 'LekoArts', // Author for schemaORGJSONLD
+  shortName: 'empiretaste', // shortname for manifest. MUST be shorter than 12 characters
+  author: 'empiretaste', // Author for schemaORGJSONLD
   themeColor: '#3D63AE',
   backgroundColor: '#EBEDF2',
 

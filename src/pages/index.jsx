@@ -7,6 +7,7 @@ import website from "../../config/website";
 import heroVideo from "../components/hero.mp4";
 import logo from "../components/ET-logo.png";
 import yellowLogo from "../components/ET-logo-yellow.png";
+import { Helmet } from 'react-helmet'
 
 const Hero = styled.header`
   background-color: ${(props) => props.theme.colors.yellow};
@@ -146,6 +147,9 @@ class Index extends Component {
     } = this.props;
     return (
       <Layout>
+        <Helmet>
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+        </Helmet>
         <Hero>
           <HeroInner>
             <video width="600" autoPlay muted loop>
