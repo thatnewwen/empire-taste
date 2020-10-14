@@ -6,6 +6,7 @@ import { Layout, Listing, Wrapper, Title } from "../components";
 import website from "../../config/website";
 import heroVideo from "../components/hero.mp4";
 import logo from "../components/ET-logo.png";
+import yellowLogo from "../components/ET-logo-yellow.png";
 
 const Hero = styled.header`
   background-color: ${(props) => props.theme.colors.yellow};
@@ -20,6 +21,7 @@ const HeroInner = styled(Wrapper)`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  max-width: 100%;
   h1 {
     margin-bottom: 2rem;
   }
@@ -27,16 +29,25 @@ const HeroInner = styled(Wrapper)`
     border-radius: 5px;
   }
   @media (max-width: ${(props) => props.theme.breakpoints.l}) {
-    padding-top: 10rem;
-    padding-bottom: 10rem;
+    /* padding-top: 10rem;
+    padding-bottom: 10rem; */
   }
   @media (max-width: ${(props) => props.theme.breakpoints.m}) {
-    padding-top: 8rem;
-    padding-bottom: 8rem;
+    /* padding-top: 8rem;
+    padding-bottom: 8rem; */
+
   }
   @media (max-width: ${(props) => props.theme.breakpoints.s}) {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
+    video{
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vh;
+      object-fit: cover;
+    }
+    /* padding-top: 6rem;
+    padding-bottom: 6rem; */
   }
 `;
 
@@ -44,12 +55,14 @@ const HeroText = styled.div`
   font-size: 0.7rem;
   line-height: 1.4;
   margin: 2rem 0;
-  width: 600px;
+  max-width: 600px;
+  z-index: 10;
   @media (max-width: ${(props) => props.theme.breakpoints.m}) {
-    font-size: 1.4rem;
   }
   @media (max-width: ${(props) => props.theme.breakpoints.s}) {
-    font-size: 1.25rem;
+    color: ${(props) => props.theme.colors.yellow};
+    font-size: 1rem;
+    margin: 2rem;
   }
 `;
 
@@ -65,6 +78,15 @@ const Social = styled.ul`
   font-family: "Source Sans Pro", -apple-system, "BlinkMacSystemFont",
     "Segoe UI", "Roboto", "Helvetica", "Arial", sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol";
+  @media (max-width: ${(props) => props.theme.breakpoints.s}) {
+    left: 0;
+    right: 0;
+    justify-content: center;
+
+    .stdLogo{
+      display: none;
+    }
+  }
   img {
     width: 70px;
   }
@@ -83,7 +105,7 @@ const Social = styled.ul`
       font-style: normal;
       text-transform: uppercase;
       color: ${(props) => props.theme.colors.greyDark};
-      font-size: 0.6rem;
+      font-size: 0.7rem;
       font-weight: 600;
       &:hover,
       &:focus {
@@ -91,7 +113,8 @@ const Social = styled.ul`
         text-decoration: none;
       }
       @media (max-width: ${(props) => props.theme.breakpoints.s}) {
-        font-size: 1.2rem;
+        font-size: 0.7rem;
+        color: ${(props) => props.theme.colors.yellow};
       }
     }
   }
@@ -134,7 +157,8 @@ class Index extends Component {
             />
             <div className="headerSection">
               <Social>
-                <img src={logo} />
+                <img src={yellowLogo} />
+                <img className="stdLogo" src={logo} />
                 {social.nodes.map((s, index) => (
                   <li
                     data-name={`social-entry-${index}`}
